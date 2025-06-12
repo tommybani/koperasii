@@ -1,17 +1,17 @@
 /*
  Navicat Premium Data Transfer
 
- Source Server         : tommy
+ Source Server         : ini mysql
  Source Server Type    : MySQL
- Source Server Version : 100414
+ Source Server Version : 80030 (8.0.30)
  Source Host           : localhost:3306
  Source Schema         : koperasi
 
  Target Server Type    : MySQL
- Target Server Version : 100414
+ Target Server Version : 80030 (8.0.30)
  File Encoding         : 65001
 
- Date: 12/12/2020 16:33:59
+ Date: 12/06/2025 13:57:29
 */
 
 SET NAMES utf8mb4;
@@ -34,7 +34,7 @@ CREATE TABLE `anggota`  (
   `anggota_hp` int NOT NULL,
   `anggota_foto` varchar(50) CHARACTER SET latin1 COLLATE latin1_swedish_ci NOT NULL,
   PRIMARY KEY (`anggota_id`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 17 CHARACTER SET = latin1 COLLATE = latin1_swedish_ci ROW_FORMAT = Dynamic;
+) ENGINE = InnoDB AUTO_INCREMENT = 18 CHARACTER SET = latin1 COLLATE = latin1_swedish_ci ROW_FORMAT = DYNAMIC;
 
 -- ----------------------------
 -- Records of anggota
@@ -43,6 +43,7 @@ INSERT INTO `anggota` VALUES (13, 'A001', 'TOMMY BANI ADAM', 'L', 'apa', '2020-0
 INSERT INTO `anggota` VALUES (14, 'A002', 'IBNU BUKHARI', 'L', 'jakarta', '2020-04-24', 'APA', 123, '0f7aa6216bb1777dede73e2ad229ddcc', 123, '1aaea601e926cdeb462e3a786396e700.PNG');
 INSERT INTO `anggota` VALUES (15, 'A003', 'ARNI', 'L', 'Jakarta', '2020-12-08', 'Cilacap', 123456789, '13627043a91878db780fb7fcd7e0c147', 4234324, '5dcb014af58babcc90ac3c0982c1694e.PNG');
 INSERT INTO `anggota` VALUES (16, 'A004', 'YUNITA', 'P', 'jakarta', '2020-12-09', 'Cilacap', 575757575, '771393b4e52f91157c7a2dc3ab198037', 67676, '8aafb551c609fa638f60660ff9f98d64.PNG');
+INSERT INTO `anggota` VALUES (17, 'A005', 'IQBAL TES', 'L', 'jakart', '2025-06-05', 'aaaa\r\nbbbbbbbb', 2147483647, '21d19c3560ddb85975b9dd27388b95b7', 9999, '84280832628349ce687fd49de98af2a5.jpg');
 
 -- ----------------------------
 -- Table structure for jenis_simpan
@@ -53,7 +54,7 @@ CREATE TABLE `jenis_simpan`  (
   `jenis_simpanan` varchar(50) CHARACTER SET latin1 COLLATE latin1_swedish_ci NOT NULL,
   `jumlah` int NOT NULL,
   PRIMARY KEY (`id_jenis`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 3 CHARACTER SET = latin1 COLLATE = latin1_swedish_ci ROW_FORMAT = Dynamic;
+) ENGINE = InnoDB AUTO_INCREMENT = 3 CHARACTER SET = latin1 COLLATE = latin1_swedish_ci ROW_FORMAT = DYNAMIC;
 
 -- ----------------------------
 -- Records of jenis_simpan
@@ -72,14 +73,15 @@ CREATE TABLE `pengambilan`  (
   `id_jenis` char(2) CHARACTER SET latin1 COLLATE latin1_swedish_ci NOT NULL,
   `jumlah` int NOT NULL,
   `user_id` int NOT NULL,
-  `tglinsert` datetime(0) NOT NULL,
+  `tglinsert` datetime NOT NULL,
   PRIMARY KEY (`id_ambil`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 5 CHARACTER SET = latin1 COLLATE = latin1_swedish_ci ROW_FORMAT = Dynamic;
+) ENGINE = InnoDB AUTO_INCREMENT = 6 CHARACTER SET = latin1 COLLATE = latin1_swedish_ci ROW_FORMAT = DYNAMIC;
 
 -- ----------------------------
 -- Records of pengambilan
 -- ----------------------------
 INSERT INTO `pengambilan` VALUES (4, '2020-12-09', 'A004', '1', 100000, 1, '2020-12-09 11:24:49');
+INSERT INTO `pengambilan` VALUES (5, '2025-06-12', 'A005', '1', 10000, 1, '2025-06-12 06:50:53');
 
 -- ----------------------------
 -- Table structure for perusahaan
@@ -93,16 +95,14 @@ CREATE TABLE `perusahaan`  (
   `alamat_perusahaan` text CHARACTER SET latin1 COLLATE latin1_swedish_ci NULL,
   `lisensi_app` varchar(255) CHARACTER SET latin1 COLLATE latin1_swedish_ci NULL DEFAULT NULL,
   PRIMARY KEY (`perusahaan_id`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 1 CHARACTER SET = latin1 COLLATE = latin1_swedish_ci ROW_FORMAT = Dynamic;
+) ENGINE = InnoDB AUTO_INCREMENT = 2 CHARACTER SET = latin1 COLLATE = latin1_swedish_ci ROW_FORMAT = DYNAMIC;
 
 -- ----------------------------
 -- Records of perusahaan
 -- ----------------------------
-INSERT INTO `perusahaan` 
-(`judulurl`, `judul`, `nama_perusahaan`, `alamat_perusahaan`, `lisensi_app`) 
-VALUES 
-('KSU Karya Sejahtera', 'KSU Karya Sejahtera', 'KSU Karya Sejahtera', 'Kel. Gisikdrono, Kec. Semarang Barat, Kota Semarang', 'Lisensi XYZ');
+INSERT INTO `perusahaan` VALUES (1, 'KSU Karya Sejahtera', 'KSU Karya Sejahtera', 'KSU Karya Sejahtera', 'Kel. Gisikdrono, Kec. Semarang Barat, Kota Semarang', 'Lisensi XYZ');
 
+-- ----------------------------
 -- Table structure for pinjaman_detail
 -- ----------------------------
 DROP TABLE IF EXISTS `pinjaman_detail`;
@@ -117,7 +117,7 @@ CREATE TABLE `pinjaman_detail`  (
   `jumlah_bayar` int NOT NULL,
   `ket` text CHARACTER SET latin1 COLLATE latin1_swedish_ci NOT NULL,
   PRIMARY KEY (`pinjaman_id_detail`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 103 CHARACTER SET = latin1 COLLATE = latin1_swedish_ci ROW_FORMAT = Dynamic;
+) ENGINE = InnoDB AUTO_INCREMENT = 103 CHARACTER SET = latin1 COLLATE = latin1_swedish_ci ROW_FORMAT = DYNAMIC;
 
 -- ----------------------------
 -- Records of pinjaman_detail
@@ -152,7 +152,7 @@ CREATE TABLE `pinjaman_header`  (
   `simpanan` varchar(255) CHARACTER SET latin1 COLLATE latin1_swedish_ci NULL DEFAULT NULL,
   `jumlah_diterima` varchar(255) CHARACTER SET latin1 COLLATE latin1_swedish_ci NULL DEFAULT NULL,
   PRIMARY KEY (`pinjam_id`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 20 CHARACTER SET = latin1 COLLATE = latin1_swedish_ci ROW_FORMAT = Dynamic;
+) ENGINE = InnoDB AUTO_INCREMENT = 20 CHARACTER SET = latin1 COLLATE = latin1_swedish_ci ROW_FORMAT = DYNAMIC;
 
 -- ----------------------------
 -- Records of pinjaman_header
@@ -168,12 +168,12 @@ CREATE TABLE `simpanan`  (
   `id_simpanan` int NOT NULL AUTO_INCREMENT,
   `jumlah` int NOT NULL,
   `user_id` varchar(50) CHARACTER SET latin1 COLLATE latin1_swedish_ci NOT NULL,
-  `tglinsert` datetime(0) NOT NULL,
+  `tglinsert` datetime NOT NULL,
   `tgl` date NOT NULL,
   `anggota_no` char(10) CHARACTER SET latin1 COLLATE latin1_swedish_ci NOT NULL,
   `id_jenis` char(2) CHARACTER SET latin1 COLLATE latin1_swedish_ci NOT NULL,
   PRIMARY KEY (`id_simpanan`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 10 CHARACTER SET = latin1 COLLATE = latin1_swedish_ci ROW_FORMAT = Dynamic;
+) ENGINE = InnoDB AUTO_INCREMENT = 11 CHARACTER SET = latin1 COLLATE = latin1_swedish_ci ROW_FORMAT = DYNAMIC;
 
 -- ----------------------------
 -- Records of simpanan
@@ -181,6 +181,7 @@ CREATE TABLE `simpanan`  (
 INSERT INTO `simpanan` VALUES (7, 100000, '1', '2020-12-08 05:28:37', '2020-12-08', 'A003', '2');
 INSERT INTO `simpanan` VALUES (8, 200000, '1', '2020-12-09 11:19:58', '2020-12-09', 'A004', '1');
 INSERT INTO `simpanan` VALUES (9, 100000, '1', '2020-12-09 11:21:10', '2020-12-09', 'A004', '2');
+INSERT INTO `simpanan` VALUES (10, 80000, '1', '2025-06-12 06:50:28', '2025-06-12', 'A005', '1');
 
 -- ----------------------------
 -- Table structure for user
@@ -194,7 +195,7 @@ CREATE TABLE `user`  (
   `level` int NOT NULL,
   `foto` varchar(100) CHARACTER SET latin1 COLLATE latin1_swedish_ci NOT NULL,
   PRIMARY KEY (`user_id`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 4 CHARACTER SET = latin1 COLLATE = latin1_swedish_ci ROW_FORMAT = Dynamic;
+) ENGINE = InnoDB AUTO_INCREMENT = 4 CHARACTER SET = latin1 COLLATE = latin1_swedish_ci ROW_FORMAT = DYNAMIC;
 
 -- ----------------------------
 -- Records of user
