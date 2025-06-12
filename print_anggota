@@ -1,0 +1,52 @@
+<?php
+	include "koneksi.php";
+	$lapor="select anggota_no, anggota_nama, anggota_no_identitas, anggota_jk, anggota_tempat_lahir, anggota_tanggal_lahir, anggota_alamat, anggota_hp from anggota order by anggota_no";
+	$hasil=mysql_query($lapor);
+	$data=array();
+	while($row=mysql_fetch_assoc($hasil)){
+		array_push($data, $row);
+	}
+	$judul="data anggota";
+	$tgl="time : ".date(I, d F Y");
+	$header=array(
+		array("label"=>Kode Anggota", "length"=>20, "align"=>"L"),
+		array("label"=>Nama Anggota", "length"=>60, "align"=>"L"),
+		array("label"=>NIK", "length"=>20, "align"=>"L"),
+		array("label"=>Jenis Kelamin", "length"=>20, "align"=>"L"),
+		array("label"=>Tempat Lahir", "length"=>60, "align"=>"L"),
+		array("label"=>Tanggal Lahir", "length"=>20, "align"=>"L"),
+		array("label"=>Alamat", "length"=>60, "align"=>"L"),
+		array("label"=>No. HP", "length"=>20, "align"=>"L"),
+	);
+	require ("fpdf16/fpdf.php");
+	$pdf=new FPDF();
+	$pdf->addpage('P','A4','C');
+	$pdf->setfont('arial','B','15');
+	$pdf->cell(0,15,$judul,'0','1','C');
+	$pdf->setfont('arial','i','9');
+	$pdf->cell(0,10,$tgl,'0','1','P');
+	$pdf->setfont('arial','','12');
+	$pdf->setfillcolor(190,190,0);
+	$pdf->settextcolor(255);
+	$pdf->setdrawcolor(128,0,0);
+	foreach ($header as $kolom){
+		$pdf=>cell($kolom['length'],8, $kolom['label'], 1, '0', $kolom['align'], true);
+	}
+	$pdf->Ln();
+	$pdf->setfillcolor(244,235,255);
+	$pdf->settextcolor(0);
+	$pdf->setfont('arial','','10');
+	$fill=false;
+	foreach ($data as $baris){
+	$i=0;
+	foreach ($baris as $cell){
+		$pdf->cell ($header[$i]['length'], 7, $cell, 2, '0', $kolom['align']. $fill);
+		$i++;
+
+	}
+	$fill=!$fill;
+	$pdf->Ln();
+
+	}
+	$pdf->output();
+?>
