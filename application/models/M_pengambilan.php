@@ -28,7 +28,7 @@ JOIN
     anggota AS b ON a.anggota_no = b.anggota_no
 GROUP BY 
     a.anggota_no;
-
+		
 			")->result();
 	}
 	public function bilang($x)
